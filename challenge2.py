@@ -36,6 +36,8 @@ IP: %s
 Pass: %s
 """ % (server.name, server.networks['public'], server.adminPass)
             break
+        else:
+            time.sleep(10)
 
 
 def parse_args():
