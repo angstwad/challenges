@@ -1,3 +1,9 @@
+.idea/
+include/
+novaclient/
+.Python
+.swp
+
 *.py[cod]
 
 # C extensions
