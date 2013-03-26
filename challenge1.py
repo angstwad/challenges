@@ -15,15 +15,14 @@ def create_servers(cs, img, flav, num):
     name = '%s%d' % ('server', num)
     thread_print("Starting build of %s" % name)
     server = cs.servers.create(name, img, flav)
-    adminPass = server.adminPass
     while True:
-        server = cs.servers.get(server.id)
+        server.get()
         if "public" in server.networks.keys():
             thread_print("""
 Name: %s
 IP: %s
 Pass: %s
-""" % (server.name, server.networks['public'], adminPass))
+""" % (server.name, server.networks['public'], server.adminPass))
             break
         else:
             thread_print("Waiting on %s network info..." % name)
