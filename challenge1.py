@@ -42,10 +42,10 @@ def main():
     threads = [threading.Thread(target=create_servers,
                                 args=[cs, ubuntu_img, flavor_512, num])
                for num in range(1, MAX_SERVERS + 1)]
-    for x in range(MAX_SERVERS):
-        threads[x].start()
-    for x in range(MAX_SERVERS):
-        threads[x].join()
+    for thread in threads:
+        thread.start()
+    for thread in threads:
+        thread.join()
 
 if __name__ == '__main__':
     main()
