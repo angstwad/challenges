@@ -31,7 +31,7 @@ def get_container(container_name):
 
 def parse_args():
     args = argparse.ArgumentParser(description='API Challenge 3: Upload a '
-                                               'directory to a named container')
+                                               'directory to named container')
     args.add_argument('container', nargs='?', help='name of remote container')
     args.add_argument('directory', nargs='?', help='local directory to upload')
     return args.parse_args()
