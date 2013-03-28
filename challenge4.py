@@ -29,16 +29,16 @@ def get_dom(domain):
 def parse_args():
     args = argparse.ArgumentParser(description='Challenge 4: Add A record '
                                                'to FQDN in Cloud DNS')
-    args.add_argument('domain', nargs='?', help='Fully qualified domain '
-                                                'name to add A record to')
-    args.add_argument('ip', nargs='?', help='IP address to add')
+    args.add_argument('domain', nargs=1,
+                      help='Fully qualified domain name to add A record to')
+    args.add_argument('ip', nargs=1, help='IP address to add')
     return args.parse_args()
 
 
 def main():
     args = parse_args()
-    domain = get_dom(args.domain)
-    record = add_rcd(domain, args.ip)
+    domain = get_dom(args.domain[0])
+    record = add_rcd(domain, args.ip[0])
     if isinstance(record[0], pyrax.clouddns.CloudDNSRecord):
         print record
     else:

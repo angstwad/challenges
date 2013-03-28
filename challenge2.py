@@ -25,7 +25,7 @@ def create_img(server):
 
 def create_server(args, image, flavor):
     print "Creating new server..."
-    server = cs.servers.create(args.server_name, image, flavor)
+    server = cs.servers.create(args.server_name[0], image, flavor)
     while True:
         print "Waiting for server to become active..."
         server.get()
@@ -41,16 +41,19 @@ Pass: %s
 
 
 def parse_args():
-    args = argparse.ArgumentParser()
-    args.add_argument('server_id', nargs='?', help="ID of server to clone")
-    args.add_argument('server_name', nargs='?', help="name of new server")
+    args = argparse.ArgumentParser(description='Rackspace API Challenge 2:'
+                                               'Image existing server and'
+                                               'launch a new server from'
+                                               'that image.')
+    args.add_argument('server_id', nargs=1, help="ID of server to clone")
+    args.add_argument('server_name', nargs=1, help="name of new server")
     return args.parse_args()
 
 
 def main():
     args = parse_args()
 
-    server = cs.servers.get(args.server_id)
+    server = cs.servers.get(args.server_id[0])
     image = create_img(server)
 
     flavor_512 = [flv for flv in cs.flavors.list() if flv.ram == 512][0]

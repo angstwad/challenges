@@ -10,7 +10,9 @@ db = pyrax.cloud_databases
 
 
 def parse_args():
-    args = argparse.ArgumentParser(description='Create a database')
+    args = argparse.ArgumentParser(description='Rackspace API Challenge 5: '
+                                               'Create a DB instance, DB, user'
+                                               'and password.')
     args.add_argument('instance_name', nargs=1, help='Instance name')
     args.add_argument('database_name', nargs=1, help='Database name')
     args.add_argument('username', nargs=1, help='Username')

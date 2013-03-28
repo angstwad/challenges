@@ -32,15 +32,15 @@ def get_container(container_name):
 def parse_args():
     args = argparse.ArgumentParser(description='API Challenge 3: Upload a '
                                                'directory to named container')
-    args.add_argument('container', nargs='?', help='name of remote container')
-    args.add_argument('directory', nargs='?', help='local directory to upload')
+    args.add_argument('container', nargs=1, help='name of remote container')
+    args.add_argument('directory', nargs=1, help='local directory to upload')
     return args.parse_args()
 
 
 def main():
     args = parse_args()
-    container = get_container(args.container)
-    upload = put_dir(args.directory, container)
+    container = get_container(args.container[0])
+    upload = put_dir(args.directory[0], container)
     while True:
         status = check_upload(upload)
         if status[0] == status[1]:
@@ -53,8 +53,6 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    # except SystemExit as e:
-    #     print e.message
     except KeyboardInterrupt:
         print "Exiting on keyboard interrupt."
         sys.exit(-1)
