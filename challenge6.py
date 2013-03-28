@@ -16,7 +16,7 @@ def create_container(container):
 def parse_args():
     args = argparse.ArgumentParser(description='Challenge 6: '
                                                'Create a public container')
-    args.add_argument('c', '--container', nargs='?', default='challenge6',
+    args.add_argument('-c', '--container', nargs='?', default='challenge6',
                       help='Container to create')
     return args.parse_args()
 
