@@ -3,6 +3,9 @@ import os
 import threading
 import time
 
+pyrax.set_credential_file(os.path.expanduser(
+    '~/.rackspace_cloud_credentials'))
+cs = pyrax.cloudservers
 semaphore = threading.Semaphore()
 MAX_SERVERS = 3
 
@@ -31,9 +34,6 @@ Pass: %s
 
 
 def main():
-    pyrax.set_credential_file(os.path.expanduser(
-        '~/.rackspace_cloud_credentials'))
-    cs = pyrax.cloudservers
     ubuntu_img = [img for img in cs.images.list()
                   if "Ubuntu 12.04" in img.name][0]
     flavor_512 = [flavor for flavor in cs.flavors.list()
