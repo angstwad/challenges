@@ -27,12 +27,12 @@ def get_dom(domain):
 
 
 def parse_args():
-    args = argparse.ArgumentParser(description='Challenge 4: Add A record '
-                                               'to FQDN in Cloud DNS')
-    args.add_argument('domain', nargs=1,
+    parser = argparse.ArgumentParser(description='Challenge 4: Add A record '
+                                                 'to FQDN in Cloud DNS')
+    parser.add_argument('domain', nargs=1,
                       help='Fully qualified domain name to add A record to')
-    args.add_argument('ip', nargs=1, help='IP address to add')
-    return args.parse_args()
+    parser.add_argument('ip', nargs=1, help='IP address to add')
+    return parser.parse_args()
 
 
 def main():

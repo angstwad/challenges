@@ -41,13 +41,13 @@ Pass: %s
 
 
 def parse_args():
-    args = argparse.ArgumentParser(description='Rackspace API Challenge 2:'
-                                               'Image existing server and'
-                                               'launch a new server from'
-                                               'that image.')
-    args.add_argument('server_id', nargs=1, help="ID of server to clone")
-    args.add_argument('server_name', nargs=1, help="name of new server")
-    return args.parse_args()
+    parser = argparse.ArgumentParser(description='Rackspace API Challenge 2:'
+                                                 'Image existing server and'
+                                                 'launch a new server from'
+                                                 'that image.')
+    parser.add_argument('server_id', nargs=1, help="ID of server to clone")
+    parser.add_argument('server_name', nargs=1, help="name of new server")
+    return parser.parse_args()
 
 
 def main():
