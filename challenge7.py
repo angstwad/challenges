@@ -47,11 +47,11 @@ def wait_for_servers(servers):
         for server in servers:
             server.get()
             if 'ACTIVE' in server.status:
-                print "Server is active: %s" % server
+                print "Server is active: %s" % server.name
                 active.append(server)
                 servers.remove(server)
             elif 'ERROR' in server.status:
-                print "Server errored out: %s" % server
+                print "Server errored out: %s" % server.name
                 error.append(server)
                 servers.remove(server)
             else:
@@ -59,6 +59,8 @@ def wait_for_servers(servers):
         time.sleep(15)
     if error:
         print "The following servers errored out: %s" % error
+        print "Proceeding with the remaining active servers."
+        return active
     elif active:
         return active
     else:
