@@ -43,7 +43,7 @@ Pass: %s
 """ % (server.name, server.networks['public'], server.adminPass))
             break
         else:
-            thread_print("Waiting on %s network info..." % name)
+            thread_print("Waiting on %s to become active..." % name)
             time.sleep(20)
 
 
