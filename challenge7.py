@@ -58,7 +58,7 @@ def wait_for_servers(servers):
                 print "%s status: %s" % (server.name, server.status)
         time.sleep(15)
     if error:
-        print "The following servers errored out: %s" % error
+        print "The following servers errored out: %s" % tuple(error)
         print "Proceeding with the remaining active servers."
         return active
     elif active:
@@ -71,7 +71,7 @@ def wait_for_servers(servers):
 def create_servers(args, img, flv):
     servers = []
     for x in range(len(args.server)):
-        print "Building server %s" % args.server[x]
+        print "Starting build of server %s." % args.server[x]
         servers.append(cs.servers.create(args.server[x], img, flv))
     return servers
 
