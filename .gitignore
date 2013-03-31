@@ -3,6 +3,11 @@ include/
 novaclient/
 .Python
 .swp
+index.html
+tmp
+share/
+template.py
+tasks.txt
 
 *.py[cod]
 
