@@ -35,16 +35,16 @@ def create_servers(cs, img, flav, num):
     server = cs.servers.create(name, img, flav)
     while True:
         server.get()
-        if 'ACTIVE' in server.status:
+        if server.status == 'ACTIVE':
             thread_print("""
 Name: %s
 IP: %s
 Pass: %s
 """ % (server.name, server.networks['public'], server.adminPass))
-        break
-    else:
-        thread_print("Waiting on %s network info..." % name)
-        time.sleep(20)
+            break
+        else:
+            thread_print("Waiting on %s network info..." % name)
+            time.sleep(20)
 
 
 def main():
