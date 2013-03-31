@@ -13,7 +13,8 @@ DEFAULT_HTML = \
     <body>
         <h1>Challenge 8, hey-oh!</h1>
     </body>
-    </html> """
+    </html>
+    """
 
 pyrax.set_credential_file(
     os.path.expanduser('~/.rackspace_cloud_credentials'))

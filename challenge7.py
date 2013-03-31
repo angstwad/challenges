@@ -10,7 +10,7 @@ lb = pyrax.cloud_loadbalancers
 
 
 def print_lb_info(lb):
-    print  """
+    print """
 Load Balancer Info:
 Name: %s
 Status: %s
@@ -78,13 +78,13 @@ def create_servers(args, img, flv):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Challenge 7: Create servers, '
-                                                 'a load balancer, and place'
-                                                 'the servers under the LB.')
+    parser = argparse.ArgumentParser(
+        description='Challenge 7: Create servers, a load balancer, and place '
+                    'the servers under the LB.')
     parser.add_argument('-s', '--server', nargs='+',
                         default=['server1', 'server2'],
                         help='Name of server(s)')
-    parser.add_argument('--lb', nargs=1, default='some-loadbal',
+    parser.add_argument('--lb', nargs=1, default=['some-loadbal'],
                         help='Name of LB')
     return parser.parse_args()
 
