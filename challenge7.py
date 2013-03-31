@@ -51,14 +51,15 @@ def wait_for_servers(servers):
                 active.append(server)
                 servers.remove(server)
             elif 'ERROR' in server.status:
-                print "Server errored out: %s" % server.name
+                print "\033[.31mServer errored out: %s\033[.31m" % server.name
                 error.append(server)
                 servers.remove(server)
             else:
                 print "%s status: %s" % (server.name, server.status)
         time.sleep(15)
     if error:
-        print "The following servers errored out: %s" % tuple(error)
+        print "\033[.31mThe following servers errored out: %s\033[.31m" \
+              % tuple(error)
         print "Proceeding with the remaining active servers."
         return active
     elif active:
@@ -77,7 +78,7 @@ def create_servers(args, img, flv):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Challenge 7: Create servers,'
+    parser = argparse.ArgumentParser(description='Challenge 7: Create servers, '
                                                  'a load balancer, and place'
                                                  'the servers under the LB.')
     parser.add_argument('-s', '--server', nargs='+',
@@ -96,7 +97,7 @@ def main():
     servers = create_servers(args, img, ram512)
     servers = wait_for_servers(servers)
 
-    lb = build_loadbal(args.lb, servers)
+    lb = build_loadbal(args.lb[0], servers)
     print_lb_info(lb)
 
 
