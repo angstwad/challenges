@@ -30,18 +30,24 @@ def thread_print(stmt):
 
 
 def create_servers(cs, img, flav, num):
+    out = """
+Name: %s
+IP: %s
+Pass: %s
+    """
     name = '%s%d' % ('server', num)
     thread_print("Starting build of %s" % name)
     server = cs.servers.create(name, img, flav)
     while True:
         server.get()
         if server.status == 'ACTIVE':
-            thread_print("""
-Name: %s
-IP: %s
-Pass: %s
-""" % (server.name, server.networks['public'], server.adminPass))
+            thread_print(out % (server.name,
+                                server.networks['public'],
+                                server.adminPass))
             break
+        elif server.status == 'ERROR':
+            thread_print("Server errored out during build: %s" % server.name)
+            exit(1)
         else:
             thread_print("Waiting on %s to become active..." % name)
             time.sleep(20)
