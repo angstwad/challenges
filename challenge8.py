@@ -42,7 +42,7 @@ def add_subdom_rcd(dom, subdom, pub_uri):
     record = {
         'type': 'CNAME',
         'name': '%s.%s' % (subdom, dom.name),
-        'data': pub_uri
+        'data': pub_uri[7:]
     }
     return dns.add_record(dom, record)
 
@@ -83,9 +83,9 @@ def make_public(cont):
     return cont.cdn_uri
 
 
-def create_public_cont():
+def create_public_cont(cont_name):
     print "Creating container."
-    return cf.create_container("challenge8")
+    return cf.create_container(cont_name)
 
 
 def parse_args():
@@ -102,12 +102,14 @@ def parse_args():
     parser.add_argument('-f', '--from-file', nargs=1,
                         help='Specify HTML file to be the index of your new '
                              'container.')
+    parser.add_argument('-c', '--container', nargs=1, default=['challenge8'],
+                        help='Optional container name.')
     return parser.parse_args()
 
 
 def main():
     args = parse_args()
-    cont = create_public_cont()
+    cont = create_public_cont(args.container[0])
     pub_uri = make_public(cont)
     upload_index(args, cont)
     set_web_index(cont)
