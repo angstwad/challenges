@@ -75,7 +75,9 @@ def create_servers(args, img, flv):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Challenge 7')
+    parser = argparse.ArgumentParser(description='Challenge 7: Create servers,'
+                                                 'a load balancer, and place'
+                                                 'the servers under the LB.')
     parser.add_argument('-s', '--server', nargs='+',
                         default=['server1', 'server2'],
                         help='Name of server(s)')
@@ -86,7 +88,6 @@ def parse_args():
 
 def main():
     args = parse_args()
-    print "Args namespace", repr(args)
     img = [img for img in cs.images.list() if 'Ubuntu 12.04' in img.name][0]
     ram512 = [flavor for flavor in cs.flavors.list() if flavor.id == '2'][0]
 
