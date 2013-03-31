@@ -82,7 +82,7 @@ def parse_args():
                         help='Domain onto which to add CNAME DNS record for '
                              'your public container.')
     parser.add_argument('-s', '--subdomain', nargs=1, default=['challenge8'],
-                        help='Manually specify a subdomain to add to the'
+                        help='Manually specify a subdomain to add to the '
                              'domain, or accept the default \'challenge8\'')
     parser.add_argument('-f', '--from-file', nargs=1,
                         help='Specify HTML file to be the index of your new '
