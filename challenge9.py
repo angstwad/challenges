@@ -44,8 +44,8 @@ def does_subdom_exist(dom, fqdn):
     try:
         dom.find_record('A', name=fqdn)
     except pyrax.exc.DomainRecordNotFound:
-        print ("No A record found of FQDN provided in Cloud DNS! "
-               "Don't worry, that's what we need to proceed.")
+        print ("OK: No duplicate A record entry in Cloud DNS for specified"
+               " domain.")
     else:
         print ("The FQDN you provided aleady has a record name like "
                "the one you supplied.  Try a new FQDN!")
@@ -54,8 +54,8 @@ def does_subdom_exist(dom, fqdn):
     try:
         dom.find_record('CNAME', name=fqdn)
     except pyrax.exc.DomainRecordNotFound:
-        print ("No CNAME record found of FQDN provided in Cloud DNS! "
-               "Don't worry, that's what we need to proceed.")
+        print ("OK: No duplicate CNAME record entry in Cloud DNS for specified"
+               " domain.")
     else:
         print ("The FQDN you provided aleady has a record name like "
                "the one you supplied.  Try a new FQDN!")
@@ -69,7 +69,7 @@ def get_domain(fqdn):
     if len(dom) > 0:
         return dom[0]
     else:
-        print "Domain not found in Cloud DNS."
+        print "Domain not found in Cloud DNS: %s" % domain
         sys.exit(1)
 
 
@@ -91,7 +91,7 @@ def get_image(idx):
         sys.exit(1)
 
 
-def list():
+def list_action():
     print "Listing...this may take a moment.\n"
     print "Images:"
     print "Num    Image Name"
@@ -124,7 +124,7 @@ def parse_args():
 def main():
     args = parse_args()
     if args.list is True:
-        list()
+        list_action()
         exit(0)
     else:
         if not args.fqdn or not args.flavor or not args.flavor:
