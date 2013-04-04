@@ -112,9 +112,9 @@ def parse_args():
     parser = argparse.ArgumentParser(description='')
     parser.add_argument('-d', '--fqdn', nargs=1,
                         help='FQDN to use with this server')
-    parser.add_argument('-i', '--image', nargs='+',
+    parser.add_argument('-i', '--image', nargs=1,
                         help='Name of server image to use')
-    parser.add_argument('-f', '--flavor', nargs='+',
+    parser.add_argument('-f', '--flavor', nargs=1,
                         help='Flavor of server to use')
     parser.add_argument('-l', '--list', action='store_true',
                         help='List images and flavors')
