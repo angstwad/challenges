@@ -109,7 +109,7 @@ an instance.
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='')
+    parser = argparse.ArgumentParser(description='Challenge 9')
     parser.add_argument('-d', '--fqdn', nargs=1,
                         help='FQDN to use with this server')
     parser.add_argument('-i', '--image', nargs=1,
