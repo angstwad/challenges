@@ -18,7 +18,7 @@ import os
 import sys
 import os.path
 
-DEFAULT_HTML = \
+DEFAULT_HTML = (
     """<!DOCTYPE html>
     <html>
     <head>
@@ -29,7 +29,7 @@ DEFAULT_HTML = \
         <h3>i <3 internets</h3>
     </body>
     </html>
-    """
+    """)
 
 pyrax.set_credential_file(
     os.path.expanduser('~/.rackspace_cloud_credentials'))
