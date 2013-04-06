@@ -1,3 +1,17 @@
+# Copyright 2013 Paul Durivage <pauldurivage@gmail.com>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import pyrax
 import os
 import argparse
@@ -76,7 +90,7 @@ def get_domain(fqdn):
 def get_flavor(idx):
     print "Looking for flavor."
     try:
-        return [flv for flv in cs.flavors.list()][int(idx)]
+        return [flv for flv in cs.flavors.list()][idx]
     except IndexError:
         print "Flavor not found"
         sys.exit(1)
@@ -85,7 +99,7 @@ def get_flavor(idx):
 def get_image(idx):
     print "Looking for image."
     try:
-        return [img for img in cs.images.list()][int(idx)]
+        return [img for img in cs.images.list()][idx]
     except IndexError:
         print "Image not found"
         sys.exit(1)
@@ -112,9 +126,9 @@ def parse_args():
     parser = argparse.ArgumentParser(description='Challenge 9')
     parser.add_argument('-d', '--fqdn', nargs=1,
                         help='FQDN to use with this server')
-    parser.add_argument('-i', '--image', nargs=1,
+    parser.add_argument('-i', '--image', nargs=1, type=int,
                         help='Name of server image to use')
-    parser.add_argument('-f', '--flavor', nargs=1,
+    parser.add_argument('-f', '--flavor', nargs=1, type=int,
                         help='Flavor of server to use')
     parser.add_argument('-l', '--list', action='store_true',
                         help='List images and flavors')
