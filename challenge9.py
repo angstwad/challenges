@@ -139,7 +139,7 @@ def main():
     args = parse_args()
     if args.list is True:
         list_action()
-        exit(0)
+        sys.exit(0)
     else:
         if not args.fqdn or not args.flavor or not args.flavor:
             print "\nTry some arguments...try 'challenge9.py --help'\n"
