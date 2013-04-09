@@ -176,7 +176,8 @@ def create_servers(args, img, flv):
     files = {'/root/.ssh/authorized_keys': args.key.read().strip()}
     for x in range(len(args.server)):
         print "Starting build of server %s." % args.server[x]
-        servers.append(cs.servers.create(args.server[x], img, flv, files=files))
+        servers.append(cs.servers.create(args.server[x], img,
+                                         flv, files=files))
     return servers
 
 
