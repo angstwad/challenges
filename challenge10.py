@@ -131,6 +131,15 @@ def get_domain(fqdn):
         sys.exit(1)
 
 
+def print_servers(servers):
+    for server in servers:
+        print """
+Server: %s
+IPs: %s
+Root Pass: %s
+""" % (server.name, server.networks['public'], server.adminPass)
+
+
 def wait_for_servers(servers):
     active = []
     error = []
@@ -233,7 +242,7 @@ def parse_args():
                         help='REQUIRED! FQDN to apply to this host.')
     parser.add_argument('-e', '--error-page', nargs='?',
                         type=argparse.FileType('r'),
-                        help='Choose a custom error page to apply to the LB')
+                        help='Ccustom (HTML) error page to apply to the LB')
     return parser.parse_args()
 
 
@@ -251,6 +260,7 @@ def main():
     flavor = get_flavor(args.flavor)
     servers = create_servers(args, image, flavor)
     servers = wait_for_servers(servers)
+    print_servers(servers)
     clb = build_loadbal(args.loadbal, servers)
     dns_rcd = add_subdom_rcd(domain, args.fqdn, clb.virtual_ips[0].address)[0]
     print_lb_info(clb, dns_rcd)
@@ -259,4 +269,10 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print "Exiting on Keyboard Interrupt"
+        sys.exit(1)
+    except Exception:
+        raise
