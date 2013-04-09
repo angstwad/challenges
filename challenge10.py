@@ -1,3 +1,17 @@
+# Copyright 2013 Paul Durivage <pauldurivage@gmail.com>
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import pyrax
 import os
 import argparse
@@ -19,27 +33,32 @@ def save_error_pg(clb):
     error_page = clb.get_error_page()['errorpage']['content']
     cont = cf.create_container(cont_name)
     try:
-        cont.store_object(file_name, error_page)
+        obj = cont.store_object(file_name, error_page)
     except Exception:
         raise
     else:
-        print """
-Saved!"
+        print """Saved!
 Container Name: %s
 Object Name: %s
-""" % (cont.name, )
+""" % (cont.name, obj.name)
 
 
-def print_lb_info(lb):
+def put_error_pg(clb):
+    pass
+
+
+def print_lb_info(lb, dns_rcd):
     print """
 Load Balancer Info:
 Name: %s
 Status: %s
 Nodes: %s
-IPs: %s
+VIPs: %s
 Algorith: %s
 Protocol: %s
-""" % (lb.name, lb.status, lb.nodes, lb.virtual_ips, lb.algorithm, lb.protocol)
+LB VIP FQDN: %s
+""" % (lb.name, lb.status, lb.nodes, lb.virtual_ips,
+       lb.algorithm, lb.protocol, dns_rcd.name)
 
 
 def build_loadbal(name, servers):
@@ -203,6 +222,9 @@ def parse_args():
                         help='List the types of images/flavors')
     parser.add_argument('-d', '--fqdn',
                         help='REQUIRED! FQDN to apply to this host.')
+    parser.add_argument('-e', '--error-page', nargs='?',
+                        type=argparse.FileType('r'),
+                        help='Choose a custom error page to apply to the LB')
     return parser.parse_args()
 
 
@@ -221,9 +243,10 @@ def main():
     servers = create_servers(args, image, flavor)
     servers = wait_for_servers(servers)
     clb = build_loadbal(args.loadbal, servers)
-    dns_rcd = add_subdom_rcd(domain, args.fqdn, clb.virtual_ips[0].address)
-    print_lb_info(clb)
-    print "DNS record:", dns_rcd
+    dns_rcd = add_subdom_rcd(domain, args.fqdn, clb.virtual_ips[0].address)[0]
+    print_lb_info(clb, dns_rcd)
+    put_error_pg(clb)
+    save_error_pg(clb)
 
 
 if __name__ == '__main__':
