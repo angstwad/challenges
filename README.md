@@ -24,11 +24,7 @@ Write a script that creates a Cloud Database instance. This instance should cont
 Write a script that creates a CDN-enabled container in Cloud Files. 
 
 ### Challenge 7
-<<<<<<< HEAD
 Write a script that will create 2 Cloud Servers and add them as nodes to a new Cloud Load Balancer.
-=======
-Write a script that will create 2 Cloud Servers and add them as nodes to a new Cloud Load Balancer. Worth 3 Points
->>>>>>> 5c7339287d5e748a231e1df534cb238433d3ed22
 
 ### Challenge 8
 Write a script that will create a static webpage served out of Cloud Files. The script must create a new container, cdn enable it, enable it to serve an index file, create an index file object, upload the object to the container, and create a CNAME record pointing to the CDN URL of the container. 
