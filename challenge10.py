@@ -43,8 +43,17 @@ Object Name: %s
 """ % (cont.name, obj.name)
 
 
-def put_error_pg(clb):
-    pass
+def put_error_pg(clb, error_page):
+    print "Setting LB error page"
+    if error_page:
+        print "Using user-provided error page."
+        html = error_page.read().strip()
+    else:
+        print "No user-provided error page; using the program default."
+        html = ("<h1>The website is down!<h1><br/>"
+                "<h2>Please try again later</h2>")
+    clb.set_error_page(html)
+    print "Done!"
 
 
 def print_lb_info(lb, dns_rcd):
@@ -245,7 +254,7 @@ def main():
     clb = build_loadbal(args.loadbal, servers)
     dns_rcd = add_subdom_rcd(domain, args.fqdn, clb.virtual_ips[0].address)[0]
     print_lb_info(clb, dns_rcd)
-    put_error_pg(clb)
+    put_error_pg(clb, args.error_page)
     save_error_pg(clb)
 
 
