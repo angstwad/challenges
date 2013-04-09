@@ -12,6 +12,24 @@ cf = pyrax.cloudfiles
 dns = pyrax.cloud_dns
 
 
+def save_error_pg(clb):
+    print "Saving load bal error page."
+    cont_name = '%s_bkup' % clb.name
+    file_name = '%s_error_page_backup.html' % clb.name
+    error_page = clb.get_error_page()['errorpage']['content']
+    cont = cf.create_container(cont_name)
+    try:
+        cont.store_object(file_name, error_page)
+    except Exception:
+        raise
+    else:
+        print """
+Saved!"
+Container Name: %s
+Object Name: %s
+""" % (cont.name, )
+
+
 def print_lb_info(lb):
     print """
 Load Balancer Info:
@@ -169,7 +187,7 @@ an instance.
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Challenge 10')
-    parser.add_argument('-s', '--servers', nargs='*',
+    parser.add_argument('-s', '--server', nargs='*',
                         default=['server1', 'server2'],
                         help='Names of servers to build.  You may specifiy 1 '
                              'or more. (Default is 2 servers)')
@@ -203,6 +221,9 @@ def main():
     servers = create_servers(args, image, flavor)
     servers = wait_for_servers(servers)
     clb = build_loadbal(args.loadbal, servers)
+    dns_rcd = add_subdom_rcd(domain, args.fqdn, clb.virtual_ips[0].address)
+    print_lb_info(clb)
+    print "DNS record:", dns_rcd
 
 
 if __name__ == '__main__':
