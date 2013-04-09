@@ -26,7 +26,7 @@ cf = pyrax.cloudfiles
 dns = pyrax.cloud_dns
 
 
-def save_error_pg(clb):
+def bkup_err_pg(clb):
     print "Saving load bal error page."
     cont_name = '%s_bkup' % clb.name
     file_name = '%s_error_page_backup.html' % clb.name
@@ -43,7 +43,7 @@ Object Name: %s
 """ % (cont.name, obj.name)
 
 
-def put_error_pg(clb, error_page):
+def custom_err_pg(clb, error_page):
     print "Setting LB error page"
     if error_page:
         print "Using user-provided error page."
@@ -264,8 +264,8 @@ def main():
     clb = build_loadbal(args.loadbal, servers)
     dns_rcd = add_subdom_rcd(domain, args.fqdn, clb.virtual_ips[0].address)[0]
     print_lb_info(clb, dns_rcd)
-    put_error_pg(clb, args.error_page)
-    save_error_pg(clb)
+    custom_err_pg(clb, args.error_page)
+    bkup_err_pg(clb)
 
 
 if __name__ == '__main__':
