@@ -202,7 +202,7 @@ def get_image(idx):
             print "Image not found"
             sys.exit(1)
     else:
-        return [img for img in cs.flavors.list()
+        return [img for img in cs.images.list()
                 if 'Ubuntu 12.04' in img.name][0]
 
 
@@ -252,8 +252,9 @@ def main():
     if args.list is True:
         list_action()
         sys.exit(0)
-    elif not args.fqdn:
-        print "You'll need to give us an FQDN.  Try 'challenge10.py --help'."
+    elif not args.fqdn or not args.key:
+        print ("You'll need to give us an FQDN and an SSH public key. "
+               "Try 'challenge10.py --help'.")
         sys.exit(1)
     domain = get_domain(args.fqdn)
     does_subdom_exist(domain, args.fqdn)
