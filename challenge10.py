@@ -236,11 +236,12 @@ def parse_args():
     parser.add_argument('-l', '--loadbal', default='lb-chal10',
                         help='Name of load balancer')
     parser.add_argument('-k', '--key', nargs='?', type=argparse.FileType('r'),
-                        help='SSH pubkey to upload to server')
+                        help='REQUIRED! SSH pubkey to upload to server')
     parser.add_argument('-L', '--list', action='store_true',
                         help='List the types of images/flavors')
     parser.add_argument('-d', '--fqdn',
-                        help='REQUIRED! FQDN to apply to this host.')
+                        help='REQUIRED! FQDN to apply to this host, in the '
+                             'format of subdomain.domain.tld.')
     parser.add_argument('-e', '--error-page', nargs='?',
                         type=argparse.FileType('r'),
                         help='Ccustom (HTML) error page to apply to the LB')
