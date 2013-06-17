@@ -18,6 +18,7 @@ import argparse
 import sys
 import time
 
+pyrax.set_setting('identity_type', 'rackspace')
 pyrax.set_credential_file(
     os.path.expanduser('~/.rackspace_cloud_credentials'))
 cs = pyrax.cloudservers

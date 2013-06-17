@@ -17,6 +17,7 @@ import os
 import argparse
 import sys
 
+pyrax.set_setting('identity_type', 'rackspace')
 pyrax.set_credential_file(
     os.path.expanduser('~/.rackspace_cloud_credentials'))
 dns = pyrax.cloud_dns
